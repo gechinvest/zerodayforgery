@@ -82,6 +82,34 @@ Key Components:
 
 ### Step-by-Step Installation
 
+#### Linux & macOS Instructions
+1. **Clone the repository (or extract the files):**
+   ```bash
+   cd ~/Downloads/ZeroDayForge  # Or wherever you downloaded/extracted the project
+   ```
+   Or clone from GitHub:
+   ```bash
+   git clone https://github.com/gechinvest/zerodayforgery.git
+   cd zerodayforgery
+   ```
+
+2. **Create a virtual environment (optional but highly recommended):**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # Linux/macOS
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip3 install -r requirements.txt
+   ```
+
+4. **Verify the installation:**
+   ```bash
+   python3 main.py --help
+   ```
+
+#### Windows Instructions
 1. **Clone the repository (or extract the files):**
    ```bash
    cd c:\Users\getas\Downloads\ZeroDayForge
@@ -91,7 +119,6 @@ Key Components:
    ```bash
    python -m venv .venv
    .venv\Scripts\activate  # Windows
-   # source .venv/bin/activate  # Linux/macOS
    ```
 
 3. **Install dependencies:**
@@ -120,6 +147,11 @@ If you want to use AI-powered verification, install Ollama:
 Let's perform a basic scan to get started!
 
 1. **Run a basic scan on a test target:**
+   Linux/macOS:
+   ```bash
+   python3 main.py -u https://testphp.vulnweb.com
+   ```
+   Windows:
    ```bash
    python main.py -u https://testphp.vulnweb.com
    ```
@@ -162,36 +194,71 @@ options:
 ### Usage Examples
 
 #### 1. Basic Full Scan
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com
+```
+Windows:
 ```bash
 python main.py -u https://example.com
 ```
 
 #### 2. High-Performance Scan (More Threads)
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com -t 50
+```
+Windows:
 ```bash
 python main.py -u https://example.com -t 50
 ```
 
 #### 3. Slower, More Polite Scan (Increased Delay)
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com --delay 0.5
+```
+Windows:
 ```bash
 python main.py -u https://example.com --delay 0.5
 ```
 
 #### 4. Scan Only for XSS
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com --xss
+```
+Windows:
 ```bash
 python main.py -u https://example.com --xss
 ```
 
 #### 5. Scan Using a Proxy
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com --proxy http://localhost:8080
+```
+Windows:
 ```bash
 python main.py -u https://example.com --proxy http://localhost:8080
 ```
 
 #### 6. Scan with AI Verification
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com --ai
+```
+Windows:
 ```bash
 python main.py -u https://example.com --ai
 ```
 
 #### 7. Generate Only HTML Reports
+Linux/macOS:
+```bash
+python3 main.py -u https://example.com -o html
+```
+Windows:
 ```bash
 python main.py -u https://example.com -o html
 ```
