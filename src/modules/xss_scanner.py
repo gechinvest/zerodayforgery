@@ -224,11 +224,25 @@ class XSSModule:
 
 
 if __name__ == "__main__":
+    print("="*60)
+    print("         Zero-Day Forge - XSS Scanner")
+    print("="*60)
+    
+    # Get target URL
     if len(sys.argv) < 2:
-        print("Usage: python xss_scanner.py <target_url>")
-        sys.exit(1)
-
-    target_url = sys.argv[1]
+        target_url = input("\nEnter target URL to scan: ").strip()
+        while not target_url:
+            target_url = input("Please enter a valid URL: ").strip()
+    else:
+        target_url = sys.argv[1]
+    
+    # Add protocol if missing
+    if not target_url.startswith(('http://', 'https://')):
+        target_url = 'https://' + target_url
+    
+    print(f"\nStarting XSS scan on: {target_url}")
+    print("="*60 + "\n")
+    
     scanner = AdvancedScanner()
     module = XSSModule(scanner)
     
@@ -236,7 +250,18 @@ if __name__ == "__main__":
         await scanner.init_session()
         try:
             await module.scan(target_url)
+            print("\n" + "="*60)
             print(f"Scan complete! Found {len(scanner.vulnerabilities)} XSS vulnerabilities.")
+            if scanner.vulnerabilities:
+                print("\nVulnerabilities found:")
+                for i, vuln in enumerate(scanner.vulnerabilities, 1):
+                    print(f"\n{i}. {vuln.type.value} ({vuln.severity.value})")
+                    print(f"   URL: {vuln.url}")
+                    if vuln.parameter:
+                        print(f"   Parameter: {vuln.parameter}")
+                    if vuln.payload:
+                        print(f"   Payload: {vuln.payload}")
+            print("="*60)
         finally:
             await scanner.close_session()
     
