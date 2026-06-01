@@ -4,8 +4,15 @@ from typing import List, Dict, Optional, Set
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 from bs4 import BeautifulSoup
 import asyncio
+import sys
+import os
 
-from ..core.engine import AdvancedScanner, Vulnerability, Severity, VulnType
+# Handle both package import and direct execution
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+    from src.core.engine import AdvancedScanner, Vulnerability, Severity, VulnType
+else:
+    from ..core.engine import AdvancedScanner, Vulnerability, Severity, VulnType
 
 
 class XSSModule:
@@ -217,12 +224,6 @@ class XSSModule:
 
 
 if __name__ == "__main__":
-    import asyncio
-    import sys
-    import os
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-    from src.core.engine import AdvancedScanner
-
     if len(sys.argv) < 2:
         print("Usage: python xss_scanner.py <target_url>")
         sys.exit(1)
@@ -232,7 +233,11 @@ if __name__ == "__main__":
     module = XSSModule(scanner)
     
     async def run_scan():
-        await module.scan(target_url)
-        print(f"Scan complete! Found {len(scanner.vulnerabilities)} XSS vulnerabilities.")
+        await scanner.init_session()
+        try:
+            await module.scan(target_url)
+            print(f"Scan complete! Found {len(scanner.vulnerabilities)} XSS vulnerabilities.")
+        finally:
+            await scanner.close_session()
     
     asyncio.run(run_scan())
