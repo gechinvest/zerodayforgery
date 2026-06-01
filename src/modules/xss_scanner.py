@@ -214,3 +214,25 @@ class XSSModule:
 
     def _is_executable_context(self, html: str, payload: str) -> bool:
         return payload in html
+
+
+if __name__ == "__main__":
+    import asyncio
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+    from src.core.engine import AdvancedScanner
+
+    if len(sys.argv) < 2:
+        print("Usage: python xss_scanner.py <target_url>")
+        sys.exit(1)
+
+    target_url = sys.argv[1]
+    scanner = AdvancedScanner()
+    module = XSSModule(scanner)
+    
+    async def run_scan():
+        await module.scan(target_url)
+        print(f"Scan complete! Found {len(scanner.vulnerabilities)} XSS vulnerabilities.")
+    
+    asyncio.run(run_scan())

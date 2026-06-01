@@ -170,3 +170,25 @@ class IDORModule:
                 )
                 self.scanner.add_vulnerability(vuln)
             await asyncio.sleep(self.scanner.config.get('delay', 0.1))
+
+
+if __name__ == "__main__":
+    import asyncio
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+    from src.core.engine import AdvancedScanner
+
+    if len(sys.argv) < 2:
+        print("Usage: python idor_scanner.py <target_url>")
+        sys.exit(1)
+
+    target_url = sys.argv[1]
+    scanner = AdvancedScanner()
+    module = IDORModule(scanner)
+    
+    async def run_scan():
+        await module.scan(target_url)
+        print(f"Scan complete! Found {len(scanner.vulnerabilities)} IDOR vulnerabilities.")
+    
+    asyncio.run(run_scan())
