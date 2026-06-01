@@ -1,0 +1,7 @@
+{
+  "numeric_ids": [1, 2, 3, 4, 5, 10, 100, 999, 1000, 9999, 10000],
+  "uuid_patterns": [],
+  "hash_patterns": [],
+  "encoded_patterns": [],
+  "path_traversal_patterns": ["../", "../../", "../../../", "./../", "..%2f"]
+}

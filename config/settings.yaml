@@ -1,0 +1,39 @@
+scanner:
+  max_threads: 20
+  timeout: 10
+  delay: 0.1
+  retry_count: 3
+  user_agent_rotation: true
+
+modules:
+  xss:
+    enabled: true
+    payload_file: "xss_payloads.json"
+    dom_scan: true
+  idor:
+    enabled: true
+    test_ids: [1, 2, 3, 4, 5, 10, 100, 1000]
+    endpoints: ["/api/user/{}", "/api/profile?id={}"]
+  sqli:
+    enabled: true
+    error_based: true
+    time_based: true
+
+output:
+  format: "all"
+  directory: "reports"
+  save_raw_responses: false
+
+network:
+  proxy: null
+  verify_ssl: false
+  rate_limit: 100
+
+ai:
+  enabled: false
+  model: "tinydolphin"
+  ollama_url: "http://localhost:11434"
+
+logging:
+  level: "INFO"
+  file: "logs/scanner.log"

